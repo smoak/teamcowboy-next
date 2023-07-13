@@ -1,23 +1,19 @@
 import { getIronSession } from "iron-session/edge";
 import { NextRequest, NextResponse } from "next/server";
+import { ironConfig } from "./lib/ironConfig";
 
 declare module "iron-session" {
   interface IronSessionData {
     user?: {
       id: number;
+      token: string;
     };
   }
 }
 
 export const middleware = async (request: NextRequest) => {
   const res = NextResponse.next();
-  const session = await getIronSession(request, res, {
-    cookieName: "leaguewrangler_auth",
-    password: process.env.SECRET_COOKIE_PASSWORD as string,
-    cookieOptions: {
-      secure: process.env.NODE_ENV === "production",
-    },
-  });
+  const session = await getIronSession(request, res, ironConfig);
   const { user } = session;
 
   if (!user) {
