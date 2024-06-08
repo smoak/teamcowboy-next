@@ -1,19 +1,10 @@
-import { getIronSession } from "iron-session/edge";
+import { getIronSession } from "iron-session";
 import { NextRequest, NextResponse } from "next/server";
-import { ironConfig } from "./lib/ironConfig";
-
-declare module "iron-session" {
-  interface IronSessionData {
-    user?: {
-      id: number;
-      token: string;
-    };
-  }
-}
+import { SessionData, ironConfig } from "./lib/ironConfig";
 
 export const middleware = async (request: NextRequest) => {
   const res = NextResponse.next();
-  const session = await getIronSession(request, res, ironConfig);
+  const session = await getIronSession<SessionData>(request, res, ironConfig);
   const { user } = session;
 
   if (!user) {

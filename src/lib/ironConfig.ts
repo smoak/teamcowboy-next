@@ -5,3 +5,10 @@ export const ironConfig = {
     secure: process.env.NODE_ENV === "production",
   },
 };
+
+export type SessionData = {
+  user?: {
+    readonly id: number;
+    readonly token: string;
+  };
+};
