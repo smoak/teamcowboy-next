@@ -1,6 +1,7 @@
 import { getSessionData } from "@/lib/session";
 import { createAuthenticatedTeamCowboy } from "@/lib/teamcowboy/api";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 const getData = async (userToken: string) => {
@@ -21,6 +22,7 @@ const Home = async () => {
   return (
     <>
       <span>Welcome, {tUser.firstName}</span>
+      <Link href="/logout">Logout</Link>
     </>
   );
 };

@@ -1,11 +1,11 @@
 "use server";
 
-import { redirect } from "next/navigation";
 import { teamCowboy } from "./teamcowboy/api";
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { SessionData, ironConfig } from "./ironConfig";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export const authenticate = async (formData: FormData) => {
   const username = formData.get("username");
@@ -27,4 +27,5 @@ export const authenticate = async (formData: FormData) => {
   await session.save();
 
   revalidatePath("/login");
+  redirect("/");
 };

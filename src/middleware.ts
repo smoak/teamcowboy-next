@@ -20,9 +20,10 @@ export const config = {
      * Match all request paths except for the ones starting with:
      * - api (API routes)
      * login (login page)
+     * logout (logout page)
      * - _next/static (static files)
      * - favicon.ico (favicon file)
      */
-    "/((?!api|login|_next/static|favicon.ico).*)",
+    "/((?!api|login|logout|_next/static|favicon.ico).*)",
   ],
 };

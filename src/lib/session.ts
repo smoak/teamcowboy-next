@@ -1,4 +1,4 @@
-import { unsealData } from "iron-session";
+import { getIronSession, unsealData } from "iron-session";
 import { cookies } from "next/headers";
 import { SessionData, ironConfig } from "./ironConfig";
 
@@ -13,4 +13,9 @@ export const getSessionData = async (
   }
 
   return unsealData(seal, ironConfig);
+};
+
+export const clearSessionData = async (cookies: ReadonlyRequestCookies) => {
+  const session = await getIronSession(cookies, ironConfig);
+  session.destroy();
 };
