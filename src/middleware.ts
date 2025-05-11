@@ -1,17 +1,16 @@
-import { getIronSession } from "iron-session";
 import { NextRequest, NextResponse } from "next/server";
-import { SessionData, ironConfig } from "./lib/ironConfig";
+import { SESSION_COOKIE_NAME } from "./app/lib/definitions";
+import { decrypt } from "./app/lib/session";
 
 export const middleware = async (request: NextRequest) => {
-  const res = NextResponse.next();
-  const session = await getIronSession<SessionData>(request, res, ironConfig);
-  const { user } = session;
+  const sessionCookieValue = request.cookies.get(SESSION_COOKIE_NAME)?.value;
+  const session = await decrypt(sessionCookieValue);
 
-  if (!user) {
+  if (!session) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  return res;
+  return NextResponse.next();
 };
 
 export const config = {
