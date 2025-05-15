@@ -32,10 +32,11 @@ export const authenticate = async (
     };
   }
 
-  createSession({
+  await createSession({
     tcToken: tokenResponse.body.token,
     userId: tokenResponse.body.userId,
   });
+
   redirect("/");
 };
 
