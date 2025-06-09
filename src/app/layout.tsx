@@ -1,4 +1,8 @@
 import type { Metadata } from "next";
+import styles from "./layout.module.css";
+import Link from "next/link";
+import "./globals.css";
+import { Trophy } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "League Wrangler",
@@ -8,9 +12,7 @@ export const metadata: Metadata = {
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
-      <body>
-        <main>{children}</main>
-      </body>
+      <body className="flex min-h-screen w-full flex-col">{children}</body>
     </html>
   );
 };
